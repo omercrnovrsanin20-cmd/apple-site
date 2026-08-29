@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #14140f;
+
+  /* Customer portal — warm ivory & brass, luxury automotive showroom feel */
+  --customer-bg: #0b0b0c;
+  --customer-surface: #141416;
+  --customer-surface-2: #1c1c1f;
+  --customer-border: #2a2a2e;
+  --customer-accent: #c8a24a;
+  --customer-accent-2: #e8d29a;
+  --customer-text: #f4f2ec;
+  --customer-text-dim: #a8a6a0;
+
+  /* Staff portal — fast, practical, operational */
+  --staff-bg: #f5f6f8;
+  --staff-surface: #ffffff;
+  --staff-border: #e2e5ea;
+  --staff-accent: #2563eb;
+  --staff-text: #12151c;
+  --staff-text-dim: #5b6472;
+
+  /* Owner portal — executive dark navy dashboard */
+  --owner-bg: #0d1117;
+  --owner-surface: #151b25;
+  --owner-surface-2: #1b2330;
+  --owner-border: #263041;
+  --owner-accent: #4fd1c5;
+  --owner-accent-2: #8b7cf6;
+  --owner-text: #eef2f6;
+  --owner-text-dim: #8a94a3;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display), serif;
+}
+
+::selection {
+  background: var(--customer-accent);
+  color: #0b0b0c;
+}
+
+.input-dark {
+  background: #1c1c1f;
+  border: 1px solid #2a2a2e;
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #f4f2ec;
+  font-size: 14px;
+}
+.input-dark:focus {
+  outline: none;
+  border-color: #c8a24a;
+}
+
+.input-light {
+  background: #ffffff;
+  border: 1px solid #e2e5ea;
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #12151c;
+  font-size: 14px;
+}
+.input-light:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+.input-owner {
+  background: #1b2330;
+  border: 1px solid #263041;
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #eef2f6;
+  font-size: 14px;
+}
+.input-owner:focus {
+  outline: none;
+  border-color: #4fd1c5;
+}
