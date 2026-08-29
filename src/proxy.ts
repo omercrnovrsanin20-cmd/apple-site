@@ -10,7 +10,7 @@ const PUBLIC_STAFF_PATHS = ["/staff/login"];
 const PUBLIC_OWNER_PATHS = ["/owner/login"];
 const PUBLIC_CUSTOMER_PATHS = ["/customer/login", "/customer/register"];
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   if (pathname.startsWith("/staff") && !PUBLIC_STAFF_PATHS.includes(pathname)) {
