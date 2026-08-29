@@ -1,0 +1,228 @@
+// Prisma schema for the detailing business management platform.
+// Single shared database used by all three portals (customer / staff / owner).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Customers
+// ---------------------------------------------------------------------------
+
+model Customer {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  phone        String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  vehicles      Vehicle[]
+  requests      AppointmentRequest[]
+  appointments  Appointment[]
+  notifications Notification[]
+}
+
+model Vehicle {
+  id            String   @id @default(cuid())
+  customerId    String
+  customer      Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  make          String
+  model         String
+  year          Int
+  licensePlate  String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  requests     AppointmentRequest[]
+  appointments Appointment[]
+  workOrders   WorkOrder[]
+  photos       Photo[]
+}
+
+// ---------------------------------------------------------------------------
+// Services (owned/managed by Owner, consumed by Customer + Staff)
+// ---------------------------------------------------------------------------
+
+model Service {
+  id               String   @id @default(cuid())
+  nameEn           String
+  nameMe           String
+  descriptionEn    String
+  descriptionMe    String
+  durationMinutes  Int
+  priceMin         Float
+  priceMax         Float?
+  imageUrl         String?
+  active           Boolean  @default(true)
+  checklistTemplate String  // JSON-encoded array of { labelEn, labelMe }
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  requests     AppointmentRequest[]
+  appointments Appointment[]
+  workOrders   WorkOrder[]
+}
+
+// ---------------------------------------------------------------------------
+// Appointment requests -> lifecycle: REQUESTED -> UNDER_REVIEW -> CONFIRMED/DECLINED -> COMPLETED
+// ---------------------------------------------------------------------------
+
+enum RequestStatus {
+  REQUESTED
+  UNDER_REVIEW
+  CONFIRMED
+  DECLINED
+  COMPLETED
+}
+
+model AppointmentRequest {
+  id             String        @id @default(cuid())
+  customerId     String
+  customer       Customer      @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  vehicleId      String
+  vehicle        Vehicle       @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  serviceId      String
+  service        Service       @relation(fields: [serviceId], references: [id])
+  preferredDate  String // ISO date (yyyy-mm-dd)
+  preferredTime  String // HH:mm
+  description    String?
+  status         RequestStatus @default(REQUESTED)
+  declineReason  String?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  photos      Photo[]
+  appointment Appointment?
+}
+
+// ---------------------------------------------------------------------------
+// Appointments -> created automatically when a request is confirmed
+// ---------------------------------------------------------------------------
+
+enum AppointmentStatus {
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+model Appointment {
+  id         String             @id @default(cuid())
+  requestId  String             @unique
+  request    AppointmentRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  customerId String
+  customer   Customer           @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  vehicleId  String
+  vehicle    Vehicle            @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  serviceId  String
+  service    Service            @relation(fields: [serviceId], references: [id])
+  date       String
+  time       String
+  status     AppointmentStatus  @default(CONFIRMED)
+  createdAt  DateTime           @default(now())
+  updatedAt  DateTime           @updatedAt
+
+  workOrder WorkOrder?
+}
+
+// ---------------------------------------------------------------------------
+// Work orders -> operational flow used by Staff
+// ---------------------------------------------------------------------------
+
+enum WorkOrderStatus {
+  CONFIRMED
+  CAR_ARRIVED
+  IN_PROGRESS
+  QUALITY_CHECK
+  READY
+  COMPLETED
+}
+
+model WorkOrder {
+  id            Int             @id @default(autoincrement())
+  appointmentId String          @unique
+  appointment   Appointment     @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
+  customerId    String
+  vehicleId     String
+  vehicle       Vehicle         @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  serviceId     String
+  service       Service         @relation(fields: [serviceId], references: [id])
+  status        WorkOrderStatus @default(CONFIRMED)
+  notes         String?
+  price         Float?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  checklistItems ChecklistItem[]
+  photos         Photo[]
+}
+
+model ChecklistItem {
+  id          String    @id @default(cuid())
+  workOrderId Int
+  workOrder   WorkOrder @relation(fields: [workOrderId], references: [id], onDelete: Cascade)
+  labelEn     String
+  labelMe     String
+  completed   Boolean   @default(false)
+  order       Int
+}
+
+// ---------------------------------------------------------------------------
+// Photos -> associated with either a request (customer upload) or a work order (staff upload)
+// ---------------------------------------------------------------------------
+
+enum PhotoCategory {
+  REQUEST
+  BEFORE
+  DURING
+  AFTER
+}
+
+model Photo {
+  id          String        @id @default(cuid())
+  category    PhotoCategory
+  url         String
+  vehicleId   String
+  vehicle     Vehicle       @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  requestId   String?
+  request     AppointmentRequest? @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  workOrderId Int?
+  workOrder   WorkOrder?    @relation(fields: [workOrderId], references: [id], onDelete: Cascade)
+  createdAt   DateTime      @default(now())
+}
+
+// ---------------------------------------------------------------------------
+// Notifications -> customer-facing status updates
+// ---------------------------------------------------------------------------
+
+model Notification {
+  id          String   @id @default(cuid())
+  customerId  String
+  customer    Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  messageEn   String
+  messageMe   String
+  read        Boolean  @default(false)
+  requestId   String?
+  createdAt   DateTime @default(now())
+}
+
+// ---------------------------------------------------------------------------
+// Staff accounts -- NOT used yet (shared dev password is used instead).
+// Modeled now so individual staff logins/roles can be introduced later
+// without a schema migration for the core concept.
+// ---------------------------------------------------------------------------
+
+model StaffAccount {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  role      String   @default("STAFF")
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
