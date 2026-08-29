@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "prisma migrate deploy && tsx prisma/seed.ts",
     "dev": "next dev",
+    "prebuild": "prisma migrate deploy && tsx prisma/seed.ts",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
