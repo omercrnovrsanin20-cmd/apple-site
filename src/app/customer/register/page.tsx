@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useI18n } from "@/lib/i18n";
 import { apiFetch, ApiError } from "@/lib/api";
 import { FormField } from "@/components/FormField";
+import { GoogleButton } from "@/components/customer/GoogleButton";
 
 export default function CustomerRegisterPage() {
   const { t } = useI18n();
@@ -43,7 +44,16 @@ export default function CustomerRegisterPage() {
   return (
     <div className="mx-auto flex max-w-md flex-col px-6 py-20">
       <h1 className="font-display text-3xl">{t("customer.registerTitle")}</h1>
-      <form onSubmit={onSubmit} className="mt-8 flex flex-col gap-4">
+
+      <GoogleButton />
+
+      <div className="my-6 flex items-center gap-3 text-xs text-[#6f6d68]">
+        <div className="h-px flex-1 bg-[#2a2a2e]" />
+        {t("customer.orDivider")}
+        <div className="h-px flex-1 bg-[#2a2a2e]" />
+      </div>
+
+      <form onSubmit={onSubmit} className="flex flex-col gap-4">
         <FormField label={t("common.name")}>
           <input required autoComplete="name" name="name" value={name} onChange={(e) => setName(e.target.value)} className="input-dark" />
         </FormField>

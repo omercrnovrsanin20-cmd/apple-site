@@ -81,6 +81,8 @@
     "heroCta": "Request an Appointment",
     "loginTitle": "Sign in to your account",
     "registerTitle": "Create your account",
+    "continueWithGoogle": "Continue with Google",
+    "orDivider": "or",
     "noAccount": "Don't have an account?",
     "haveAccount": "Already have an account?",
     "addVehicle": "Add Vehicle",
@@ -174,6 +176,10 @@
     "yearInvalid": "Please enter a valid year.",
     "wrongPassword": "Incorrect password.",
     "wrongCredentials": "Incorrect email or password.",
-    "emailInUse": "An account with this email already exists."
+    "emailInUse": "An account with this email already exists.",
+    "google_not_configured": "Google sign-in isn't set up yet.",
+    "google_state_mismatch": "Google sign-in expired, please try again.",
+    "google_exchange_failed": "Google sign-in failed, please try again.",
+    "google_email_unverified": "Your Google account's email isn't verified."
   }
 }

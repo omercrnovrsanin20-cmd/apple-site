@@ -81,6 +81,8 @@
     "heroCta": "Zakažite termin",
     "loginTitle": "Prijavite se na svoj nalog",
     "registerTitle": "Kreirajte nalog",
+    "continueWithGoogle": "Nastavi sa Google nalogom",
+    "orDivider": "ili",
     "noAccount": "Nemate nalog?",
     "haveAccount": "Već imate nalog?",
     "addVehicle": "Dodaj vozilo",
@@ -174,6 +176,10 @@
     "yearInvalid": "Unesite ispravnu godinu proizvodnje.",
     "wrongPassword": "Netačna lozinka.",
     "wrongCredentials": "Netačan email ili lozinka.",
-    "emailInUse": "Nalog sa ovom email adresom već postoji."
+    "emailInUse": "Nalog sa ovom email adresom već postoji.",
+    "google_not_configured": "Google prijava još uvijek nije podešena.",
+    "google_state_mismatch": "Google prijava je istekla, pokušajte ponovo.",
+    "google_exchange_failed": "Google prijava nije uspjela, pokušajte ponovo.",
+    "google_email_unverified": "Email adresa vašeg Google naloga nije potvrđena."
   }
 }

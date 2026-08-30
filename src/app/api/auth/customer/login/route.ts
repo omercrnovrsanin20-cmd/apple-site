@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
   const { email, password } = parsed.data;
 
   const customer = await prisma.customer.findUnique({ where: { email } });
-  if (!customer || !(await verifyPassword(password, customer.passwordHash))) {
+  if (!customer || !customer.passwordHash || !(await verifyPassword(password, customer.passwordHash))) {
     return NextResponse.json({ error: "wrongCredentials" }, { status: 401 });
   }
 

@@ -17,7 +17,8 @@ datasource db {
 model Customer {
   id           String   @id @default(cuid())
   email        String   @unique
-  passwordHash String
+  passwordHash String? // null for accounts created via Google sign-in
+  googleId     String?  @unique
   name         String
   phone        String?
   createdAt    DateTime @default(now())

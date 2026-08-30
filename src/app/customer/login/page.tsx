@@ -1,18 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useI18n } from "@/lib/i18n";
 import { apiFetch, ApiError } from "@/lib/api";
 import { FormField } from "@/components/FormField";
+import { GoogleButton } from "@/components/customer/GoogleButton";
 
 export default function CustomerLoginPage() {
+  return (
+    <Suspense fallback={null}>
+      <CustomerLoginForm />
+    </Suspense>
+  );
+}
+
+function CustomerLoginForm() {
   const { t } = useI18n();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(() => {
+    const googleError = searchParams.get("error");
+    return googleError ? t(`validation.${googleError}`) : null;
+  });
   const [loading, setLoading] = useState(false);
 
   async function onSubmit(e: React.FormEvent) {
@@ -34,7 +47,16 @@ export default function CustomerLoginPage() {
   return (
     <div className="mx-auto flex max-w-md flex-col px-6 py-20">
       <h1 className="font-display text-3xl">{t("customer.loginTitle")}</h1>
-      <form onSubmit={onSubmit} className="mt-8 flex flex-col gap-4">
+
+      <GoogleButton />
+
+      <div className="my-6 flex items-center gap-3 text-xs text-[#6f6d68]">
+        <div className="h-px flex-1 bg-[#2a2a2e]" />
+        {t("customer.orDivider")}
+        <div className="h-px flex-1 bg-[#2a2a2e]" />
+      </div>
+
+      <form onSubmit={onSubmit} className="flex flex-col gap-4">
         <FormField label={t("common.email")}>
           <input
             type="email"
