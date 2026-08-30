@@ -16,12 +16,24 @@ interface Service {
   active: boolean;
 }
 
+const BLANK_SERVICE: Partial<Service> = {
+  nameEn: "",
+  nameMe: "",
+  descriptionEn: "",
+  descriptionMe: "",
+  durationMinutes: 60,
+  priceMin: 0,
+  priceMax: undefined,
+};
+
 export default function OwnerServicesPage() {
   const { t } = useI18n();
   const [services, setServices] = useState<Service[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState<Partial<Service>>({});
   const [savedFlash, setSavedFlash] = useState<string | null>(null);
+  const [adding, setAdding] = useState(false);
+  const [newForm, setNewForm] = useState<Partial<Service>>(BLANK_SERVICE);
 
   function load() {
     apiFetch<{ services: Service[] }>("/api/owner/services").then((r) => setServices(r.services));
@@ -31,6 +43,17 @@ export default function OwnerServicesPage() {
   function startEdit(s: Service) {
     setEditingId(s.id);
     setForm(s);
+  }
+
+  async function addService() {
+    const { nameEn, nameMe, descriptionEn, descriptionMe, durationMinutes, priceMin, priceMax } = newForm;
+    await apiFetch("/api/owner/services", {
+      method: "POST",
+      body: JSON.stringify({ nameEn, nameMe, descriptionEn, descriptionMe, durationMinutes, priceMin, priceMax }),
+    });
+    setAdding(false);
+    setNewForm(BLANK_SERVICE);
+    load();
   }
 
   async function save() {
@@ -57,6 +80,59 @@ export default function OwnerServicesPage() {
       <p className="mt-1 text-sm text-[#a8a6a0]">
         Changes here update the shared database immediately and are reflected in the Customer Portal.
       </p>
+
+      {adding ? (
+        <div className="mt-6 flex flex-col gap-2 rounded-lg border border-[#c8a24a] bg-[#141416] p-4">
+          <input className="input-owner" value={newForm.nameEn ?? ""} onChange={(e) => setNewForm({ ...newForm, nameEn: e.target.value })} placeholder="Name (EN)" />
+          <input className="input-owner" value={newForm.nameMe ?? ""} onChange={(e) => setNewForm({ ...newForm, nameMe: e.target.value })} placeholder="Naziv (ME)" />
+          <textarea className="input-owner" value={newForm.descriptionEn ?? ""} onChange={(e) => setNewForm({ ...newForm, descriptionEn: e.target.value })} placeholder="Description (EN)" />
+          <textarea className="input-owner" value={newForm.descriptionMe ?? ""} onChange={(e) => setNewForm({ ...newForm, descriptionMe: e.target.value })} placeholder="Opis (ME)" />
+          <div className="grid grid-cols-3 gap-2">
+            <input
+              type="number"
+              className="input-owner"
+              value={newForm.durationMinutes ?? 0}
+              onChange={(e) => setNewForm({ ...newForm, durationMinutes: Number(e.target.value) })}
+              placeholder={t("common.duration")}
+            />
+            <input
+              type="number"
+              className="input-owner"
+              value={newForm.priceMin ?? 0}
+              onChange={(e) => setNewForm({ ...newForm, priceMin: Number(e.target.value) })}
+              placeholder="Min €"
+            />
+            <input
+              type="number"
+              className="input-owner"
+              value={newForm.priceMax ?? ""}
+              onChange={(e) => setNewForm({ ...newForm, priceMax: Number(e.target.value) })}
+              placeholder="Max €"
+            />
+          </div>
+          <div className="mt-2 flex gap-2">
+            <button onClick={addService} className="rounded-lg bg-[#c8a24a] px-4 py-2 text-sm font-medium text-black">
+              {t("common.save")}
+            </button>
+            <button
+              onClick={() => {
+                setAdding(false);
+                setNewForm(BLANK_SERVICE);
+              }}
+              className="rounded-lg border border-[#2a2a2e] px-4 py-2 text-sm"
+            >
+              {t("common.cancel")}
+            </button>
+          </div>
+        </div>
+      ) : (
+        <button
+          onClick={() => setAdding(true)}
+          className="mt-6 rounded-lg bg-[#c8a24a] px-4 py-2 text-sm font-medium text-black"
+        >
+          {t("owner.addService")}
+        </button>
+      )}
 
       <div className="mt-6 flex flex-col gap-3">
         {services.map((s) => (
