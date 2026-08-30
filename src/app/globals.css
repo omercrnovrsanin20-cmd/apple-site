@@ -69,28 +69,19 @@ body {
   border-color: #c8a24a;
 }
 
-.input-light {
-  background: #ffffff;
-  border: 1px solid #e2e5ea;
-  border-radius: 8px;
-  padding: 10px 14px;
-  color: #12151c;
-  font-size: 14px;
-}
-.input-light:focus {
-  outline: none;
-  border-color: #2563eb;
-}
-
+/* Staff and Owner portals share the same dark/gold identity as Customer --
+   the class names stay so existing markup doesn't need touching. */
+.input-light,
 .input-owner {
-  background: #1b2330;
-  border: 1px solid #263041;
+  background: #1c1c1f;
+  border: 1px solid #2a2a2e;
   border-radius: 8px;
   padding: 10px 14px;
-  color: #eef2f6;
+  color: #f4f2ec;
   font-size: 14px;
 }
+.input-light:focus,
 .input-owner:focus {
   outline: none;
-  border-color: #4fd1c5;
+  border-color: #c8a24a;
 }

@@ -36,12 +36,22 @@ export default function CustomerLoginPage() {
       <h1 className="font-display text-3xl">{t("customer.loginTitle")}</h1>
       <form onSubmit={onSubmit} className="mt-8 flex flex-col gap-4">
         <FormField label={t("common.email")}>
-          <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="input-dark" />
+          <input
+            type="email"
+            required
+            autoComplete="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="input-dark"
+          />
         </FormField>
         <FormField label={t("common.password")}>
           <input
             type="password"
             required
+            autoComplete="current-password"
+            name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="input-dark"

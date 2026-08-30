@@ -22,25 +22,25 @@ export default function StaffVehicleHistoryPage({ params }: { params: Promise<{ 
     apiFetch<VehicleHistory>(`/api/staff/vehicles/${id}`).then(setData);
   }, [id]);
 
-  if (!data) return <div className="px-6 py-16 text-[#5b6472]">{t("common.loading")}</div>;
+  if (!data) return <div className="px-6 py-16 text-[#a8a6a0]">{t("common.loading")}</div>;
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-10">
       <h1 className="text-2xl font-semibold">
         {data.vehicle.make} {data.vehicle.model}
       </h1>
-      <p className="text-[#5b6472]">
+      <p className="text-[#a8a6a0]">
         {data.vehicle.year} {data.vehicle.licensePlate ? `· ${data.vehicle.licensePlate}` : ""} · {data.vehicle.customer.name} (
         {data.vehicle.customer.email})
       </p>
 
-      <h2 className="mt-8 mb-2 text-sm font-semibold uppercase text-[#5b6472]">{t("staff.vehicleHistory")}</h2>
+      <h2 className="mt-8 mb-2 text-sm font-semibold uppercase text-[#a8a6a0]">{t("staff.vehicleHistory")}</h2>
       <div className="flex flex-col gap-2">
         {data.workOrders.map((wo) => (
           <Link
             key={wo.id}
             href={`/staff/workorders/${wo.id}`}
-            className="flex items-center justify-between rounded-lg border border-[#e2e5ea] bg-white p-4 hover:border-[#2563eb]"
+            className="flex items-center justify-between rounded-lg border border-[#2a2a2e] bg-[#141416] p-4 hover:border-[#c8a24a]"
           >
             <p>
               {t("staff.jobNumber")} #{wo.id} · {lang === "me" ? wo.service.nameMe : wo.service.nameEn}
@@ -52,7 +52,7 @@ export default function StaffVehicleHistoryPage({ params }: { params: Promise<{ 
 
       {data.photos.length > 0 && (
         <>
-          <h2 className="mt-8 mb-2 text-sm font-semibold uppercase text-[#5b6472]">{t("common.photos")}</h2>
+          <h2 className="mt-8 mb-2 text-sm font-semibold uppercase text-[#a8a6a0]">{t("common.photos")}</h2>
           <div className="flex flex-wrap gap-2">
             {data.photos.map((p) => (
               <img key={p.id} src={`/api/files/${p.url}`} alt={p.category} className="h-20 w-20 rounded object-cover" />

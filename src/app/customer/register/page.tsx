@@ -45,19 +45,29 @@ export default function CustomerRegisterPage() {
       <h1 className="font-display text-3xl">{t("customer.registerTitle")}</h1>
       <form onSubmit={onSubmit} className="mt-8 flex flex-col gap-4">
         <FormField label={t("common.name")}>
-          <input required value={name} onChange={(e) => setName(e.target.value)} className="input-dark" />
+          <input required autoComplete="name" name="name" value={name} onChange={(e) => setName(e.target.value)} className="input-dark" />
         </FormField>
         <FormField label={t("common.email")}>
-          <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="input-dark" />
+          <input
+            type="email"
+            required
+            autoComplete="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="input-dark"
+          />
         </FormField>
         <FormField label={t("common.phone")}>
-          <input value={phone} onChange={(e) => setPhone(e.target.value)} className="input-dark" />
+          <input autoComplete="tel" name="phone" value={phone} onChange={(e) => setPhone(e.target.value)} className="input-dark" />
         </FormField>
         <FormField label={t("common.password")}>
           <input
             type="password"
             required
             minLength={8}
+            autoComplete="new-password"
+            name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="input-dark"

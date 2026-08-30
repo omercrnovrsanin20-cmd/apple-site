@@ -31,17 +31,19 @@ export default function OwnerLoginPage() {
   }
 
   return (
-    <div className="flex flex-1 flex-col items-center justify-center bg-[#0d1117] px-6 py-20 text-[#eef2f6]">
+    <div className="flex flex-1 flex-col items-center justify-center bg-[#0b0b0c] px-6 py-20 text-[#f4f2ec]">
       <div className="absolute top-6 right-6">
         <LanguageSwitcher variant="dark" />
       </div>
-      <div className="w-full max-w-sm rounded-xl border border-[#263041] bg-[#151b25] p-8">
+      <div className="w-full max-w-sm rounded-xl border border-[#2a2a2e] bg-[#141416] p-8">
         <h1 className="text-xl font-semibold">{t("owner.loginTitle")}</h1>
         <form onSubmit={onSubmit} className="mt-6 flex flex-col gap-4">
           <input
             type="email"
             required
             autoFocus
+            autoComplete="email"
+            name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="input-owner"
@@ -50,6 +52,8 @@ export default function OwnerLoginPage() {
           <input
             type="password"
             required
+            autoComplete="current-password"
+            name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="input-owner"
@@ -59,7 +63,7 @@ export default function OwnerLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="rounded-lg bg-[#4fd1c5] px-6 py-3 text-sm font-medium text-black transition hover:bg-[#7ee0d6] disabled:opacity-50"
+            className="rounded-lg bg-[#c8a24a] px-6 py-3 text-sm font-medium text-black transition hover:bg-[#e8d29a] disabled:opacity-50"
           >
             {t("common.login")}
           </button>

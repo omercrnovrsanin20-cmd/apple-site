@@ -20,9 +20,9 @@ export default function OwnerSettingsPage() {
           desc="Staff login and future individual accounts."
           href="/owner/staff"
         />
-        <div className="rounded-lg border border-[#263041] bg-[#151b25] p-5">
+        <div className="rounded-lg border border-[#2a2a2e] bg-[#141416] p-5">
           <p className="font-medium">System configuration</p>
-          <p className="mt-1 text-[#8a94a3]">
+          <p className="mt-1 text-[#a8a6a0]">
             Auth secrets, the shared staff development password and owner credentials are configured via server-side
             environment variables (AUTH_SECRET, STAFF_PASSWORD, OWNER_EMAIL, OWNER_PASSWORD) and are never exposed to
             the frontend.
@@ -35,9 +35,9 @@ export default function OwnerSettingsPage() {
 
 function SettingRow({ title, desc, href }: { title: string; desc: string; href: string }) {
   return (
-    <a href={href} className="block rounded-lg border border-[#263041] bg-[#151b25] p-5 hover:border-[#4fd1c5]">
+    <a href={href} className="block rounded-lg border border-[#2a2a2e] bg-[#141416] p-5 hover:border-[#c8a24a]">
       <p className="font-medium">{title}</p>
-      <p className="mt-1 text-[#8a94a3]">{desc}</p>
+      <p className="mt-1 text-[#a8a6a0]">{desc}</p>
     </a>
   );
 }

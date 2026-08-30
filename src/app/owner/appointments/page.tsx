@@ -53,9 +53,9 @@ export default function OwnerAppointmentsPage() {
         </select>
       </div>
 
-      <div className="mt-6 overflow-x-auto rounded-lg border border-[#263041]">
+      <div className="mt-6 overflow-x-auto rounded-lg border border-[#2a2a2e]">
         <table className="w-full text-sm">
-          <thead className="bg-[#151b25] text-left text-[#8a94a3]">
+          <thead className="bg-[#141416] text-left text-[#a8a6a0]">
             <tr>
               <th className="p-3">{t("common.date")}</th>
               <th className="p-3">{t("common.customer")}</th>
@@ -66,7 +66,7 @@ export default function OwnerAppointmentsPage() {
           </thead>
           <tbody>
             {appointments.map((a) => (
-              <tr key={a.id} className="border-t border-[#263041]">
+              <tr key={a.id} className="border-t border-[#2a2a2e]">
                 <td className="p-3">
                   {a.date} {a.time}
                 </td>
@@ -82,7 +82,7 @@ export default function OwnerAppointmentsPage() {
             ))}
             {appointments.length === 0 && (
               <tr>
-                <td colSpan={5} className="p-6 text-center text-[#8a94a3]">
+                <td colSpan={5} className="p-6 text-center text-[#a8a6a0]">
                   {t("common.noData")}
                 </td>
               </tr>

@@ -42,15 +42,15 @@ export default function OwnerCustomersPage() {
           <Link
             key={c.id}
             href={`/owner/customers/${c.id}`}
-            className="flex items-center justify-between rounded-lg border border-[#263041] bg-[#151b25] p-4 hover:border-[#4fd1c5]"
+            className="flex items-center justify-between rounded-lg border border-[#2a2a2e] bg-[#141416] p-4 hover:border-[#c8a24a]"
           >
             <div>
               <p className="font-medium">{c.name}</p>
-              <p className="text-sm text-[#8a94a3]">
+              <p className="text-sm text-[#a8a6a0]">
                 {c.email} {c.phone ? `· ${c.phone}` : ""} · {c.vehicles.length} vehicle(s)
               </p>
             </div>
-            <div className="text-right text-sm text-[#8a94a3]">
+            <div className="text-right text-sm text-[#a8a6a0]">
               <p>
                 {t("owner.totalJobsForCustomer")}: {c._count.appointments}
               </p>
@@ -60,7 +60,7 @@ export default function OwnerCustomersPage() {
             </div>
           </Link>
         ))}
-        {filtered.length === 0 && <p className="text-[#8a94a3]">{t("common.noData")}</p>}
+        {filtered.length === 0 && <p className="text-[#a8a6a0]">{t("common.noData")}</p>}
       </div>
     </div>
   );

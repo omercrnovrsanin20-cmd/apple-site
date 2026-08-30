@@ -27,14 +27,14 @@ export function StaffNav() {
   ];
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[#e2e5ea] bg-white">
+    <header className="sticky top-0 z-40 border-b border-[#2a2a2e] bg-[#141416]">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
-        <Link href="/staff" className="text-base font-semibold text-[#12151c]">
-          Lustro <span className="text-[#2563eb]">Staff</span>
+        <Link href="/staff" className="text-base font-semibold text-[#f4f2ec]">
+          Lustro <span className="text-[#c8a24a]">Staff</span>
         </Link>
-        <nav className="hidden md:flex items-center gap-5 text-sm text-[#5b6472]">
+        <nav className="hidden md:flex items-center gap-5 text-sm text-[#a8a6a0]">
           {links.map((l) => (
-            <Link key={l.href} href={l.href} className="hover:text-[#12151c] transition">
+            <Link key={l.href} href={l.href} className="hover:text-[#f4f2ec] transition">
               {l.label}
             </Link>
           ))}
@@ -43,15 +43,15 @@ export function StaffNav() {
           <LanguageSwitcher />
           <button
             onClick={handleLogout}
-            className="rounded-full border border-[#e2e5ea] px-4 py-1.5 text-xs text-[#12151c] hover:border-[#2563eb] transition"
+            className="rounded-full border border-[#2a2a2e] px-4 py-1.5 text-xs text-[#f4f2ec] hover:border-[#c8a24a] transition"
           >
             {t("common.logout")}
           </button>
         </div>
       </div>
-      <div className="md:hidden flex gap-4 overflow-x-auto px-6 pb-3 text-xs text-[#5b6472]">
+      <div className="md:hidden flex gap-4 overflow-x-auto px-6 pb-3 text-xs text-[#a8a6a0]">
         {links.map((l) => (
-          <Link key={l.href} href={l.href} className="whitespace-nowrap hover:text-[#12151c]">
+          <Link key={l.href} href={l.href} className="whitespace-nowrap hover:text-[#f4f2ec]">
             {l.label}
           </Link>
         ))}

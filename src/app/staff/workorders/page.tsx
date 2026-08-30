@@ -26,18 +26,18 @@ export default function StaffWorkOrdersPage() {
     <div className="mx-auto max-w-5xl px-6 py-10">
       <h1 className="text-2xl font-semibold">{t("nav.workOrders")}</h1>
       <div className="mt-6 flex flex-col gap-2">
-        {workOrders?.length === 0 && <p className="text-[#5b6472]">{t("common.noData")}</p>}
+        {workOrders?.length === 0 && <p className="text-[#a8a6a0]">{t("common.noData")}</p>}
         {workOrders?.map((w) => (
           <Link
             key={w.id}
             href={`/staff/workorders/${w.id}`}
-            className="flex items-center justify-between rounded-lg border border-[#e2e5ea] bg-white p-4 hover:border-[#2563eb]"
+            className="flex items-center justify-between rounded-lg border border-[#2a2a2e] bg-[#141416] p-4 hover:border-[#c8a24a]"
           >
             <div>
               <p className="font-medium">
                 {t("staff.jobNumber")} #{w.id} · {w.appointment.customer.name}
               </p>
-              <p className="text-sm text-[#5b6472]">
+              <p className="text-sm text-[#a8a6a0]">
                 {w.vehicle.make} {w.vehicle.model} · {lang === "me" ? w.service.nameMe : w.service.nameEn}
               </p>
             </div>

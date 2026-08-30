@@ -79,7 +79,7 @@ export default function StaffWorkOrderDetailPage({ params }: { params: Promise<{
     load();
   }
 
-  if (!wo) return <div className="px-6 py-16 text-[#5b6472]">{t("common.loading")}</div>;
+  if (!wo) return <div className="px-6 py-16 text-[#a8a6a0]">{t("common.loading")}</div>;
 
   const currentIndex = FLOW.indexOf(wo.status);
   const nextStatus = FLOW[currentIndex + 1];
@@ -93,16 +93,16 @@ export default function StaffWorkOrderDetailPage({ params }: { params: Promise<{
         <StatusBadge status={wo.status} />
       </div>
 
-      <div className="mt-4 rounded-lg border border-[#e2e5ea] bg-white p-4 text-sm">
+      <div className="mt-4 rounded-lg border border-[#2a2a2e] bg-[#141416] p-4 text-sm">
         <p className="font-medium">{wo.appointment.customer.name}</p>
-        <p className="text-[#5b6472]">
+        <p className="text-[#a8a6a0]">
           {wo.appointment.customer.email} {wo.appointment.customer.phone ? `· ${wo.appointment.customer.phone}` : ""}
         </p>
         <p className="mt-2">
           {wo.vehicle.make} {wo.vehicle.model} ({wo.vehicle.year}) {wo.vehicle.licensePlate ?? ""}
         </p>
-        <p className="text-[#5b6472]">{lang === "me" ? wo.service.nameMe : wo.service.nameEn}</p>
-        <p className="text-[#5b6472]">
+        <p className="text-[#a8a6a0]">{lang === "me" ? wo.service.nameMe : wo.service.nameEn}</p>
+        <p className="text-[#a8a6a0]">
           {wo.appointment.date} · {wo.appointment.time}
         </p>
       </div>
@@ -111,24 +111,24 @@ export default function StaffWorkOrderDetailPage({ params }: { params: Promise<{
         <button
           onClick={advance}
           disabled={busy}
-          className="mt-4 rounded-lg bg-[#12151c] px-6 py-2.5 text-sm font-medium text-white disabled:opacity-50"
+          className="mt-4 rounded-lg bg-[#1c1c1f] px-6 py-2.5 text-sm font-medium text-[#f4f2ec] border border-[#2a2a2e] disabled:opacity-50"
         >
           {t("staff.advanceStatus")} → {t(`statuses.${nextStatus}`)}
         </button>
       )}
 
       <section className="mt-8">
-        <h2 className="mb-2 text-sm font-semibold uppercase text-[#5b6472]">{t("staff.checklist")}</h2>
-        <div className="flex flex-col gap-1 rounded-lg border border-[#e2e5ea] bg-white p-3">
+        <h2 className="mb-2 text-sm font-semibold uppercase text-[#a8a6a0]">{t("staff.checklist")}</h2>
+        <div className="flex flex-col gap-1 rounded-lg border border-[#2a2a2e] bg-[#141416] p-3">
           {wo.checklistItems.map((item) => (
-            <label key={item.id} className="flex items-center gap-2 rounded px-2 py-1.5 text-sm hover:bg-[#f5f6f8]">
+            <label key={item.id} className="flex items-center gap-2 rounded px-2 py-1.5 text-sm hover:bg-[#1c1c1f]">
               <input
                 type="checkbox"
                 checked={item.completed}
                 onChange={(e) => toggleItem(item.id, e.target.checked)}
                 className="h-4 w-4"
               />
-              <span className={item.completed ? "text-[#5b6472] line-through" : ""}>
+              <span className={item.completed ? "text-[#a8a6a0] line-through" : ""}>
                 {lang === "me" ? item.labelMe : item.labelEn}
               </span>
             </label>
@@ -137,7 +137,7 @@ export default function StaffWorkOrderDetailPage({ params }: { params: Promise<{
       </section>
 
       <section className="mt-8">
-        <h2 className="mb-2 text-sm font-semibold uppercase text-[#5b6472]">{t("common.photos")}</h2>
+        <h2 className="mb-2 text-sm font-semibold uppercase text-[#a8a6a0]">{t("common.photos")}</h2>
         <div className="flex items-center gap-2">
           <select value={category} onChange={(e) => setCategory(e.target.value as typeof category)} className="input-light">
             <option value="BEFORE">{t("staff.uploadBefore")}</option>
@@ -150,16 +150,16 @@ export default function StaffWorkOrderDetailPage({ params }: { params: Promise<{
           {wo.photos.map((p) => (
             <div key={p.id} className="text-center">
               <img src={`/api/files/${p.url}`} alt={p.category} className="h-24 w-24 rounded object-cover" />
-              <p className="mt-1 text-[10px] uppercase text-[#5b6472]">{p.category}</p>
+              <p className="mt-1 text-[10px] uppercase text-[#a8a6a0]">{p.category}</p>
             </div>
           ))}
         </div>
       </section>
 
       <section className="mt-8">
-        <h2 className="mb-2 text-sm font-semibold uppercase text-[#5b6472]">{t("staff.addNote")}</h2>
+        <h2 className="mb-2 text-sm font-semibold uppercase text-[#a8a6a0]">{t("staff.addNote")}</h2>
         <textarea value={notes} onChange={(e) => setNotes(e.target.value)} className="input-light w-full min-h-24" />
-        <button onClick={saveNotes} className="mt-2 rounded-lg border border-[#e2e5ea] px-4 py-2 text-sm">
+        <button onClick={saveNotes} className="mt-2 rounded-lg border border-[#2a2a2e] px-4 py-2 text-sm">
           {t("common.save")}
         </button>
       </section>

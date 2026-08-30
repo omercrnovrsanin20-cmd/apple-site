@@ -5,7 +5,7 @@ interface Point {
   value: number;
 }
 
-export function MiniLineChart({ data, color = "#4fd1c5" }: { data: Point[]; color?: string }) {
+export function MiniLineChart({ data, color = "#c8a24a" }: { data: Point[]; color?: string }) {
   const max = Math.max(1, ...data.map((d) => d.value));
   const w = 600;
   const h = 140;
@@ -23,17 +23,17 @@ export function MiniLineChart({ data, color = "#4fd1c5" }: { data: Point[]; colo
   );
 }
 
-export function MiniBarChart({ data, color = "#8b7cf6" }: { data: { label: string; value: number }[]; color?: string }) {
+export function MiniBarChart({ data, color = "#e8d29a" }: { data: { label: string; value: number }[]; color?: string }) {
   const max = Math.max(1, ...data.map((d) => d.value));
   return (
     <div className="flex flex-col gap-2">
       {data.map((d) => (
         <div key={d.label} className="flex items-center gap-2 text-xs">
-          <span className="w-32 truncate text-[#8a94a3]">{d.label}</span>
-          <div className="h-3 flex-1 rounded bg-[#1b2330]">
+          <span className="w-32 truncate text-[#a8a6a0]">{d.label}</span>
+          <div className="h-3 flex-1 rounded bg-[#1c1c1f]">
             <div className="h-3 rounded" style={{ width: `${(d.value / max) * 100}%`, background: color }} />
           </div>
-          <span className="w-10 text-right text-[#eef2f6]">{d.value}</span>
+          <span className="w-10 text-right text-[#f4f2ec]">{d.value}</span>
         </div>
       ))}
     </div>

@@ -54,13 +54,13 @@ export default function OwnerServicesPage() {
   return (
     <div className="mx-auto max-w-4xl px-6 py-10">
       <h1 className="text-2xl font-semibold">{t("owner.manageServices")}</h1>
-      <p className="mt-1 text-sm text-[#8a94a3]">
+      <p className="mt-1 text-sm text-[#a8a6a0]">
         Changes here update the shared database immediately and are reflected in the Customer Portal.
       </p>
 
       <div className="mt-6 flex flex-col gap-3">
         {services.map((s) => (
-          <div key={s.id} className="rounded-lg border border-[#263041] bg-[#151b25] p-4">
+          <div key={s.id} className="rounded-lg border border-[#2a2a2e] bg-[#141416] p-4">
             {editingId === s.id ? (
               <div className="flex flex-col gap-2">
                 <input className="input-owner" value={form.nameEn ?? ""} onChange={(e) => setForm({ ...form, nameEn: e.target.value })} placeholder="Name (EN)" />
@@ -91,10 +91,10 @@ export default function OwnerServicesPage() {
                   />
                 </div>
                 <div className="flex gap-2">
-                  <button onClick={save} className="rounded-lg bg-[#4fd1c5] px-4 py-2 text-sm font-medium text-black">
+                  <button onClick={save} className="rounded-lg bg-[#c8a24a] px-4 py-2 text-sm font-medium text-black">
                     {t("common.save")}
                   </button>
-                  <button onClick={() => setEditingId(null)} className="rounded-lg border border-[#263041] px-4 py-2 text-sm">
+                  <button onClick={() => setEditingId(null)} className="rounded-lg border border-[#2a2a2e] px-4 py-2 text-sm">
                     {t("common.cancel")}
                   </button>
                 </div>
@@ -105,7 +105,7 @@ export default function OwnerServicesPage() {
                   <p className="font-medium">
                     {s.nameEn} / {s.nameMe}
                   </p>
-                  <p className="text-sm text-[#8a94a3]">
+                  <p className="text-sm text-[#a8a6a0]">
                     {s.priceMin}
                     {s.priceMax ? `–${s.priceMax}` : "+"} € · {s.durationMinutes} {t("common.min")}
                   </p>
@@ -118,7 +118,7 @@ export default function OwnerServicesPage() {
                   >
                     {s.active ? t("owner.active") : t("owner.inactive")}
                   </button>
-                  <button onClick={() => startEdit(s)} className="text-sm text-[#4fd1c5] hover:underline">
+                  <button onClick={() => startEdit(s)} className="text-sm text-[#c8a24a] hover:underline">
                     {t("common.edit")}
                   </button>
                 </div>

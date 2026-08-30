@@ -28,19 +28,19 @@ export default function OwnerVehiclesPage() {
       <h1 className="text-2xl font-semibold">{t("nav.vehicles")}</h1>
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
         {vehicles.map((v) => (
-          <div key={v.id} className="rounded-lg border border-[#263041] bg-[#151b25] p-4 text-sm">
+          <div key={v.id} className="rounded-lg border border-[#2a2a2e] bg-[#141416] p-4 text-sm">
             <p className="font-medium">
               {v.make} {v.model} ({v.year})
             </p>
-            <p className="text-[#8a94a3]">
+            <p className="text-[#a8a6a0]">
               {v.licensePlate ?? "—"} · {v.customer.name}
             </p>
-            <p className="mt-1 text-xs text-[#8a94a3]">
+            <p className="mt-1 text-xs text-[#a8a6a0]">
               {v.workOrders.length} work order(s) · {v.photos.length} photo(s)
             </p>
           </div>
         ))}
-        {vehicles.length === 0 && <p className="text-[#8a94a3]">{t("common.noData")}</p>}
+        {vehicles.length === 0 && <p className="text-[#a8a6a0]">{t("common.noData")}</p>}
       </div>
     </div>
   );

@@ -84,21 +84,21 @@ export default function StaffCalendarPage() {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setCursor((c) => (c.month === 0 ? { year: c.year - 1, month: 11 } : { year: c.year, month: c.month - 1 }))}
-            className="rounded border border-[#e2e5ea] px-3 py-1 text-sm"
+            className="rounded border border-[#2a2a2e] px-3 py-1 text-sm"
           >
             ←
           </button>
           <span className="w-40 text-center text-sm font-medium capitalize">{monthLabel}</span>
           <button
             onClick={() => setCursor((c) => (c.month === 11 ? { year: c.year + 1, month: 0 } : { year: c.year, month: c.month + 1 }))}
-            className="rounded border border-[#e2e5ea] px-3 py-1 text-sm"
+            className="rounded border border-[#2a2a2e] px-3 py-1 text-sm"
           >
             →
           </button>
         </div>
       </div>
 
-      <div className="mt-6 grid grid-cols-7 gap-2 text-xs text-[#5b6472]">
+      <div className="mt-6 grid grid-cols-7 gap-2 text-xs text-[#a8a6a0]">
         {["Pon", "Uto", "Sri", "Čet", "Pet", "Sub", "Ned"].map((d) => (
           <div key={d} className="px-2 py-1 text-center font-medium">
             {d}
@@ -109,11 +109,11 @@ export default function StaffCalendarPage() {
           const dateStr = `${cursor.year}-${pad(cursor.month + 1)}-${pad(day)}`;
           const entry = byDate.get(dateStr);
           return (
-            <div key={idx} className="min-h-24 rounded-lg border border-[#e2e5ea] bg-white p-2">
-              <p className="text-right text-xs text-[#5b6472]">{day}</p>
+            <div key={idx} className="min-h-24 rounded-lg border border-[#2a2a2e] bg-[#141416] p-2">
+              <p className="text-right text-xs text-[#a8a6a0]">{day}</p>
               <div className="mt-1 flex flex-col gap-1">
                 {entry?.pending.map((p) => (
-                  <div key={p.id} onClick={() => router.push(`/staff/requests/${p.id}`)} className="cursor-pointer truncate rounded bg-amber-50 px-1.5 py-0.5 text-[10px] text-amber-700">
+                  <div key={p.id} onClick={() => router.push(`/staff/requests/${p.id}`)} className="cursor-pointer truncate rounded bg-amber-500/15 px-1.5 py-0.5 text-[10px] text-amber-300">
                     ● {p.customer.name}
                   </div>
                 ))}
@@ -121,7 +121,7 @@ export default function StaffCalendarPage() {
                   <div
                     key={a.id}
                     onClick={() => a.workOrder && router.push(`/staff/workorders/${a.workOrder.id}`)}
-                    className="cursor-pointer truncate rounded bg-[#eef2ff] px-1.5 py-0.5 text-[10px] text-[#2563eb]"
+                    className="cursor-pointer truncate rounded bg-[#2a2a2e] px-1.5 py-0.5 text-[10px] text-[#c8a24a]"
                   >
                     <span className={`mr-1 inline-block h-1.5 w-1.5 rounded-full ${a.workOrder ? STATUS_DOT[a.workOrder.status] : "bg-emerald-500"}`} />
                     {a.time} {a.customer.name}

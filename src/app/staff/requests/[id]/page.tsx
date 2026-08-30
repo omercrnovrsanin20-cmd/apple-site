@@ -81,7 +81,7 @@ export default function StaffRequestDetailPage({ params }: { params: Promise<{ i
     setAi(res.suggestions);
   }
 
-  if (!request) return <div className="px-6 py-16 text-[#5b6472]">{t("common.loading")}</div>;
+  if (!request) return <div className="px-6 py-16 text-[#a8a6a0]">{t("common.loading")}</div>;
 
   const canAct = request.status === "REQUESTED" || request.status === "UNDER_REVIEW";
 
@@ -95,38 +95,38 @@ export default function StaffRequestDetailPage({ params }: { params: Promise<{ i
       <section className="mt-6 grid gap-6 sm:grid-cols-2">
         <Card title={t("staff.contactInfo")}>
           <p>{request.customer.name}</p>
-          <p className="text-[#5b6472]">{request.customer.email}</p>
-          {request.customer.phone && <p className="text-[#5b6472]">{request.customer.phone}</p>}
+          <p className="text-[#a8a6a0]">{request.customer.email}</p>
+          {request.customer.phone && <p className="text-[#a8a6a0]">{request.customer.phone}</p>}
         </Card>
         <Card title={t("staff.vehicleInfo")}>
           <p>
             {request.vehicle.make} {request.vehicle.model} ({request.vehicle.year})
           </p>
-          {request.vehicle.licensePlate && <p className="text-[#5b6472]">{request.vehicle.licensePlate}</p>}
+          {request.vehicle.licensePlate && <p className="text-[#a8a6a0]">{request.vehicle.licensePlate}</p>}
           <button
             onClick={() => router.push(`/staff/vehicles/${request.vehicle.id}`)}
-            className="mt-1 text-xs text-[#2563eb] hover:underline"
+            className="mt-1 text-xs text-[#c8a24a] hover:underline"
           >
             {t("staff.vehicleHistory")}
           </button>
         </Card>
         <Card title={t("staff.requestedService")}>
           <p>{lang === "me" ? request.service.nameMe : request.service.nameEn}</p>
-          <p className="text-[#5b6472]">
+          <p className="text-[#a8a6a0]">
             {t("staff.requestedDate")}: {request.preferredDate} · {t("staff.requestedTime")}: {request.preferredTime}
           </p>
-          <p className="text-[#5b6472]">
+          <p className="text-[#a8a6a0]">
             {t("customer.estimatedDuration")}: {request.service.durationMinutes} {t("common.min")}
           </p>
         </Card>
         <Card title={t("common.description")}>
-          <p className="text-[#5b6472]">{request.description || "—"}</p>
+          <p className="text-[#a8a6a0]">{request.description || "—"}</p>
         </Card>
       </section>
 
       {request.photos.length > 0 && (
         <section className="mt-6">
-          <h2 className="mb-2 text-sm font-semibold uppercase text-[#5b6472]">{t("common.photos")}</h2>
+          <h2 className="mb-2 text-sm font-semibold uppercase text-[#a8a6a0]">{t("common.photos")}</h2>
           <div className="flex flex-wrap gap-2">
             {request.photos.map((p) => (
               <img key={p.id} src={`/api/files/${p.url}`} alt="" className="h-28 w-28 rounded object-cover" />
@@ -136,26 +136,26 @@ export default function StaffRequestDetailPage({ params }: { params: Promise<{ i
       )}
 
       <section className="mt-6">
-        <button onClick={loadAi} className="text-xs text-[#2563eb] hover:underline">
+        <button onClick={loadAi} className="text-xs text-[#c8a24a] hover:underline">
           {t("staff.aiSuggestions")}
         </button>
         {ai && (
-          <div className="mt-2 rounded-lg border border-dashed border-[#e2e5ea] bg-white p-4 text-sm">
+          <div className="mt-2 rounded-lg border border-dashed border-[#2a2a2e] bg-[#141416] p-4 text-sm">
             <p className="font-medium">Potential services:</p>
-            <p className="text-[#5b6472]">{ai.potentialServices.join(", ")}</p>
+            <p className="text-[#a8a6a0]">{ai.potentialServices.join(", ")}</p>
             {ai.possibleConditions.length > 0 && (
               <>
                 <p className="mt-2 font-medium">Possible vehicle condition:</p>
-                <p className="text-[#5b6472]">{ai.possibleConditions.join(", ")}</p>
+                <p className="text-[#a8a6a0]">{ai.possibleConditions.join(", ")}</p>
               </>
             )}
-            <p className="mt-2 text-xs italic text-[#5b6472]">{ai.note}</p>
+            <p className="mt-2 text-xs italic text-[#a8a6a0]">{ai.note}</p>
           </div>
         )}
       </section>
 
       {request.status === "DECLINED" && request.declineReason && (
-        <p className="mt-6 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+        <p className="mt-6 rounded-lg border border-red-900 bg-red-950/40 p-4 text-sm text-red-300">
           {t("customer.declineReason")}: {request.declineReason}
         </p>
       )}
@@ -163,7 +163,7 @@ export default function StaffRequestDetailPage({ params }: { params: Promise<{ i
       {request.appointment?.workOrder && (
         <button
           onClick={() => router.push(`/staff/workorders/${request.appointment!.workOrder!.id}`)}
-          className="mt-6 rounded-lg bg-[#12151c] px-5 py-2.5 text-sm text-white"
+          className="mt-6 rounded-lg bg-[#1c1c1f] px-5 py-2.5 text-sm text-[#f4f2ec] border border-[#2a2a2e]"
         >
           {t("nav.workOrders")} →
         </button>
@@ -184,7 +184,7 @@ export default function StaffRequestDetailPage({ params }: { params: Promise<{ i
               <button
                 onClick={() => setShowDecline(true)}
                 disabled={busy}
-                className="rounded-lg border border-red-300 px-6 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50"
+                className="rounded-lg border border-red-800 px-6 py-2.5 text-sm font-medium text-red-400 hover:bg-red-950/40"
               >
                 {t("staff.declineRequest")}
               </button>
@@ -201,7 +201,7 @@ export default function StaffRequestDetailPage({ params }: { params: Promise<{ i
                 <button onClick={decline} disabled={busy} className="rounded-lg bg-red-600 px-6 py-2.5 text-sm font-medium text-white">
                   {t("common.confirm")}
                 </button>
-                <button onClick={() => setShowDecline(false)} className="rounded-lg border border-[#e2e5ea] px-6 py-2.5 text-sm">
+                <button onClick={() => setShowDecline(false)} className="rounded-lg border border-[#2a2a2e] px-6 py-2.5 text-sm">
                   {t("common.cancel")}
                 </button>
               </div>
@@ -215,8 +215,8 @@ export default function StaffRequestDetailPage({ params }: { params: Promise<{ i
 
 function Card({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-lg border border-[#e2e5ea] bg-white p-4 text-sm">
-      <h3 className="mb-1 text-xs font-semibold uppercase text-[#5b6472]">{title}</h3>
+    <div className="rounded-lg border border-[#2a2a2e] bg-[#141416] p-4 text-sm">
+      <h3 className="mb-1 text-xs font-semibold uppercase text-[#a8a6a0]">{title}</h3>
       {children}
     </div>
   );

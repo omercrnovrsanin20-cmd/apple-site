@@ -23,7 +23,7 @@ export default function StaffDashboard() {
     apiFetch<DashboardData>("/api/staff/dashboard").then(setData);
   }, []);
 
-  if (!data) return <div className="px-6 py-16 text-[#5b6472]">{t("common.loading")}</div>;
+  if (!data) return <div className="px-6 py-16 text-[#a8a6a0]">{t("common.loading")}</div>;
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-10">
@@ -43,14 +43,14 @@ export default function StaffDashboard() {
             <Link
               key={r.id}
               href={`/staff/requests/${r.id}`}
-              className="flex items-center justify-between rounded-lg border border-[#e2e5ea] bg-white p-4 hover:border-[#2563eb]"
+              className="flex items-center justify-between rounded-lg border border-[#2a2a2e] bg-[#141416] p-4 hover:border-[#c8a24a]"
             >
               <div>
                 <p className="font-medium">{r.customer.name}</p>
-                <p className="text-sm text-[#5b6472]">
+                <p className="text-sm text-[#a8a6a0]">
                   {r.vehicle.make} {r.vehicle.model} · {lang === "me" ? r.service.nameMe : r.service.nameEn}
                 </p>
-                <p className="text-xs text-[#5b6472]">
+                <p className="text-xs text-[#a8a6a0]">
                   {r.preferredDate} {r.preferredTime}
                 </p>
               </div>
@@ -65,13 +65,13 @@ export default function StaffDashboard() {
             <Link
               key={a.id}
               href={a.workOrder ? `/staff/workorders/${a.workOrder.id}` : "#"}
-              className="flex items-center justify-between rounded-lg border border-[#e2e5ea] bg-white p-4 hover:border-[#2563eb]"
+              className="flex items-center justify-between rounded-lg border border-[#2a2a2e] bg-[#141416] p-4 hover:border-[#c8a24a]"
             >
               <div>
                 <p className="font-medium">
                   {a.time} · {a.customer.name}
                 </p>
-                <p className="text-sm text-[#5b6472]">
+                <p className="text-sm text-[#a8a6a0]">
                   {a.vehicle.make} {a.vehicle.model} · {lang === "me" ? a.service.nameMe : a.service.nameEn}
                 </p>
               </div>
@@ -86,13 +86,13 @@ export default function StaffDashboard() {
             <Link
               key={w.id}
               href={`/staff/workorders/${w.id}`}
-              className="flex items-center justify-between rounded-lg border border-[#e2e5ea] bg-white p-4 hover:border-[#2563eb]"
+              className="flex items-center justify-between rounded-lg border border-[#2a2a2e] bg-[#141416] p-4 hover:border-[#c8a24a]"
             >
               <div>
                 <p className="font-medium">
                   {w.vehicle.make} {w.vehicle.model}
                 </p>
-                <p className="text-sm text-[#5b6472]">{lang === "me" ? w.service.nameMe : w.service.nameEn}</p>
+                <p className="text-sm text-[#a8a6a0]">{lang === "me" ? w.service.nameMe : w.service.nameEn}</p>
               </div>
               <StatusBadge status={w.status} />
             </Link>
@@ -102,11 +102,11 @@ export default function StaffDashboard() {
         <Panel title={t("staff.upcoming")}>
           {data.upcoming.length === 0 && <Empty text={t("common.noData")} />}
           {data.upcoming.map((a) => (
-            <div key={a.id} className="rounded-lg border border-[#e2e5ea] bg-white p-4">
+            <div key={a.id} className="rounded-lg border border-[#2a2a2e] bg-[#141416] p-4">
               <p className="font-medium">
                 {a.date} {a.time} · {a.customer.name}
               </p>
-              <p className="text-sm text-[#5b6472]">
+              <p className="text-sm text-[#a8a6a0]">
                 {a.vehicle.make} {a.vehicle.model}
               </p>
             </div>
@@ -119,9 +119,9 @@ export default function StaffDashboard() {
 
 function StatCard({ label, value }: { label: string; value: number }) {
   return (
-    <div className="rounded-lg border border-[#e2e5ea] bg-white p-5">
+    <div className="rounded-lg border border-[#2a2a2e] bg-[#141416] p-5">
       <p className="text-2xl font-semibold">{value}</p>
-      <p className="mt-1 text-sm text-[#5b6472]">{label}</p>
+      <p className="mt-1 text-sm text-[#a8a6a0]">{label}</p>
     </div>
   );
 }
@@ -129,12 +129,12 @@ function StatCard({ label, value }: { label: string; value: number }) {
 function Panel({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-[#5b6472]">{title}</h2>
+      <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-[#a8a6a0]">{title}</h2>
       <div className="flex flex-col gap-2">{children}</div>
     </div>
   );
 }
 
 function Empty({ text }: { text: string }) {
-  return <p className="rounded-lg border border-dashed border-[#e2e5ea] p-4 text-sm text-[#5b6472]">{text}</p>;
+  return <p className="rounded-lg border border-dashed border-[#2a2a2e] p-4 text-sm text-[#a8a6a0]">{text}</p>;
 }

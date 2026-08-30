@@ -31,14 +31,14 @@ export function OwnerNav() {
   ];
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[#263041] bg-[#0d1117]">
+    <header className="sticky top-0 z-40 border-b border-[#2a2a2e] bg-[#0b0b0c]">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
-        <Link href="/owner" className="text-base font-semibold text-[#eef2f6]">
-          Lustro <span className="text-[#4fd1c5]">Owner</span>
+        <Link href="/owner" className="text-base font-semibold text-[#f4f2ec]">
+          Lustro <span className="text-[#c8a24a]">Owner</span>
         </Link>
-        <nav className="hidden lg:flex items-center gap-4 text-sm text-[#8a94a3]">
+        <nav className="hidden lg:flex items-center gap-4 text-sm text-[#a8a6a0]">
           {links.map((l) => (
-            <Link key={l.href} href={l.href} className="hover:text-[#eef2f6] transition">
+            <Link key={l.href} href={l.href} className="hover:text-[#f4f2ec] transition">
               {l.label}
             </Link>
           ))}
@@ -47,15 +47,15 @@ export function OwnerNav() {
           <LanguageSwitcher variant="dark" />
           <button
             onClick={handleLogout}
-            className="rounded-full border border-[#263041] px-4 py-1.5 text-xs text-[#eef2f6] hover:border-[#4fd1c5] transition"
+            className="rounded-full border border-[#2a2a2e] px-4 py-1.5 text-xs text-[#f4f2ec] hover:border-[#c8a24a] transition"
           >
             {t("common.logout")}
           </button>
         </div>
       </div>
-      <div className="lg:hidden flex gap-4 overflow-x-auto px-6 pb-3 text-xs text-[#8a94a3]">
+      <div className="lg:hidden flex gap-4 overflow-x-auto px-6 pb-3 text-xs text-[#a8a6a0]">
         {links.map((l) => (
-          <Link key={l.href} href={l.href} className="whitespace-nowrap hover:text-[#eef2f6]">
+          <Link key={l.href} href={l.href} className="whitespace-nowrap hover:text-[#f4f2ec]">
             {l.label}
           </Link>
         ))}
