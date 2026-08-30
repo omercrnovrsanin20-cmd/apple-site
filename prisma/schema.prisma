@@ -158,11 +158,26 @@ model WorkOrder {
   status        WorkOrderStatus @default(CONFIRMED)
   notes         String?
   price         Float?
+  completedAt   DateTime? // set when status transitions to COMPLETED -- used for staff performance analytics
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
 
   checklistItems ChecklistItem[]
   photos         Photo[]
+  assignments    WorkOrderAssignment[]
+}
+
+// Staff claiming a job -- many-to-many so more than one staff member can work
+// the same car. claimedAt drives the "total jobs worked" window in analytics.
+model WorkOrderAssignment {
+  id          String       @id @default(cuid())
+  workOrderId Int
+  workOrder   WorkOrder    @relation(fields: [workOrderId], references: [id], onDelete: Cascade)
+  staffId     String
+  staff       StaffAccount @relation(fields: [staffId], references: [id], onDelete: Cascade)
+  claimedAt   DateTime     @default(now())
+
+  @@unique([workOrderId, staffId])
 }
 
 model ChecklistItem {
@@ -227,4 +242,6 @@ model StaffAccount {
   role         String   @default("STAFF")
   active       Boolean  @default(true)
   createdAt    DateTime @default(now())
+
+  assignments WorkOrderAssignment[]
 }

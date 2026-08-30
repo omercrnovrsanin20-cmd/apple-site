@@ -27,6 +27,7 @@ export function OwnerNav() {
     { href: "/owner/services", label: t("nav.services") },
     { href: "/owner/analytics", label: t("nav.analytics") },
     { href: "/owner/staff", label: t("nav.staffMgmt") },
+    { href: "/owner/staff-performance", label: t("nav.staffPerformance") },
     { href: "/owner/settings", label: t("nav.settings") },
   ];
 

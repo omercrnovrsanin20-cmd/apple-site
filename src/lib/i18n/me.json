@@ -72,6 +72,8 @@
     "appointments": "Termini",
     "analytics": "Analitika",
     "staffMgmt": "Osoblje",
+    "myJobs": "Moji poslovi",
+    "staffPerformance": "Učinak radnika",
     "settings": "Podešavanja"
   },
   "customer": {
@@ -137,7 +139,10 @@
     "addNote": "Dodaj napomenu",
     "vehicleHistory": "Istorija vozila",
     "noPendingRequests": "Trenutno nema zahtjeva na čekanju.",
-    "aiSuggestions": "AI predlozi (samo informativno)"
+    "aiSuggestions": "AI predlozi (samo informativno)",
+    "assignedStaff": "Osoblje",
+    "noStaffAssigned": "Još nema dodijeljenog osoblja",
+    "claimJob": "Preuzmi posao"
   },
   "owner": {
     "portalName": "Portal za vlasnika",
@@ -170,7 +175,17 @@
     "jobsOverTime": "Poslovi kroz vrijeme",
     "appointmentStatusBreakdown": "Pregled statusa termina",
     "staffWorkload": "Opterećenje osoblja",
-    "noDataYet": "Još uvijek nema podataka. Analitika će se popuniti kako se poslovi budu završavali."
+    "noDataYet": "Još uvijek nema podataka. Analitika će se popuniti kako se poslovi budu završavali.",
+    "periodToday": "Danas",
+    "periodWeek": "Ove sedmice",
+    "periodMonth": "Ovog mjeseca",
+    "periodLastMonth": "Prošlog mjeseca",
+    "periodCustom": "Prilagođeno",
+    "totalJobsWorked": "Ukupno poslova",
+    "completedJobsLabel": "Završeni poslovi",
+    "servicesWorked": "Odrađene usluge",
+    "viewDetails": "Prikaži detalje",
+    "noJobsInPeriod": "Nema poslova u ovom periodu."
   },
   "validation": {
     "invalidEmail": "Unesite ispravnu email adresu.",

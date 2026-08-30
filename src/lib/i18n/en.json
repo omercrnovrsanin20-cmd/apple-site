@@ -72,6 +72,8 @@
     "appointments": "Appointments",
     "analytics": "Analytics",
     "staffMgmt": "Staff",
+    "myJobs": "My Jobs",
+    "staffPerformance": "Staff Performance",
     "settings": "Settings"
   },
   "customer": {
@@ -137,7 +139,10 @@
     "addNote": "Add job note",
     "vehicleHistory": "Vehicle History",
     "noPendingRequests": "No pending requests.",
-    "aiSuggestions": "AI Suggestions (informational only)"
+    "aiSuggestions": "AI Suggestions (informational only)",
+    "assignedStaff": "Staff",
+    "noStaffAssigned": "No staff assigned yet",
+    "claimJob": "Claim Job"
   },
   "owner": {
     "portalName": "Owner Portal",
@@ -170,7 +175,17 @@
     "jobsOverTime": "Jobs Over Time",
     "appointmentStatusBreakdown": "Appointment Status Breakdown",
     "staffWorkload": "Staff Workload",
-    "noDataYet": "No data yet. Analytics will populate as real jobs are completed."
+    "noDataYet": "No data yet. Analytics will populate as real jobs are completed.",
+    "periodToday": "Today",
+    "periodWeek": "This Week",
+    "periodMonth": "This Month",
+    "periodLastMonth": "Last Month",
+    "periodCustom": "Custom",
+    "totalJobsWorked": "Total Jobs Worked",
+    "completedJobsLabel": "Completed Jobs",
+    "servicesWorked": "Services Worked",
+    "viewDetails": "View Details",
+    "noJobsInPeriod": "No jobs in this period."
   },
   "validation": {
     "invalidEmail": "Please enter a valid email address.",

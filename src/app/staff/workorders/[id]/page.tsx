@@ -16,6 +16,9 @@ interface Photo {
   category: string;
   url: string;
 }
+interface Assignment {
+  staff: { id: string; name: string };
+}
 interface WorkOrderDetail {
   id: number;
   status: string;
@@ -25,6 +28,7 @@ interface WorkOrderDetail {
   checklistItems: ChecklistItem[];
   photos: Photo[];
   appointment: { date: string; time: string; customer: { name: string; email: string; phone: string | null } };
+  assignments: Assignment[];
 }
 
 const FLOW = ["CONFIRMED", "CAR_ARRIVED", "IN_PROGRESS", "QUALITY_CHECK", "READY", "COMPLETED"];
@@ -36,6 +40,8 @@ export default function StaffWorkOrderDetailPage({ params }: { params: Promise<{
   const [notes, setNotes] = useState("");
   const [busy, setBusy] = useState(false);
   const [category, setCategory] = useState<"BEFORE" | "DURING" | "AFTER">("BEFORE");
+  const [me, setMe] = useState<{ id: string; name: string } | null>(null);
+  const [claiming, setClaiming] = useState(false);
 
   function load() {
     apiFetch<{ workOrder: WorkOrderDetail }>(`/api/staff/workorders/${id}`).then((r) => {
@@ -44,6 +50,9 @@ export default function StaffWorkOrderDetailPage({ params }: { params: Promise<{
     });
   }
   useEffect(load, [id]);
+  useEffect(() => {
+    apiFetch<{ session: { id: string; name: string } }>("/api/auth/staff/me").then((r) => setMe(r.session));
+  }, []);
 
   async function advance() {
     setBusy(true);
@@ -52,6 +61,16 @@ export default function StaffWorkOrderDetailPage({ params }: { params: Promise<{
       load();
     } finally {
       setBusy(false);
+    }
+  }
+
+  async function claimJob() {
+    setClaiming(true);
+    try {
+      await apiFetch(`/api/staff/workorders/${id}/claim`, { method: "POST" });
+      load();
+    } finally {
+      setClaiming(false);
     }
   }
 
@@ -105,6 +124,24 @@ export default function StaffWorkOrderDetailPage({ params }: { params: Promise<{
         <p className="text-[#a8a6a0]">
           {wo.appointment.date} · {wo.appointment.time}
         </p>
+      </div>
+
+      <div className="mt-4 flex flex-wrap items-center gap-3 rounded-lg border border-[#2a2a2e] bg-[#141416] p-4 text-sm">
+        <span className="text-[#a8a6a0]">{t("staff.assignedStaff")}:</span>
+        {wo.assignments.length === 0 ? (
+          <span className="text-[#a8a6a0]">{t("staff.noStaffAssigned")}</span>
+        ) : (
+          <span>{wo.assignments.map((a) => a.staff.name).join(", ")}</span>
+        )}
+        {me && !wo.assignments.some((a) => a.staff.id === me.id) && (
+          <button
+            onClick={claimJob}
+            disabled={claiming}
+            className="ml-auto rounded-lg bg-[#c8a24a] px-4 py-2 text-sm font-medium text-black disabled:opacity-50"
+          >
+            {t("staff.claimJob")}
+          </button>
+        )}
       </div>
 
       {nextStatus && (

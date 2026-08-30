@@ -24,6 +24,7 @@ export function StaffNav() {
     { href: "/staff/requests", label: t("nav.requests") },
     { href: "/staff/calendar", label: t("nav.calendar") },
     { href: "/staff/workorders", label: t("nav.workOrders") },
+    { href: "/staff/my-jobs", label: t("nav.myJobs") },
   ];
 
   return (

@@ -13,7 +13,7 @@ interface Appointment {
   customer: { name: string };
   vehicle: { make: string; model: string };
   service: { nameEn: string; nameMe: string; id: string };
-  workOrder: { status: string } | null;
+  workOrder: { status: string; assignments: { staff: { id: string; name: string } }[] } | null;
 }
 
 export default function OwnerAppointmentsPage() {
@@ -61,6 +61,7 @@ export default function OwnerAppointmentsPage() {
               <th className="p-3">{t("common.customer")}</th>
               <th className="p-3">{t("common.vehicle")}</th>
               <th className="p-3">{t("common.service")}</th>
+              <th className="p-3">{t("staff.assignedStaff")}</th>
               <th className="p-3">{t("common.status")}</th>
             </tr>
           </thead>
@@ -75,6 +76,11 @@ export default function OwnerAppointmentsPage() {
                   {a.vehicle.make} {a.vehicle.model}
                 </td>
                 <td className="p-3">{lang === "me" ? a.service.nameMe : a.service.nameEn}</td>
+                <td className="p-3 text-[#a8a6a0]">
+                  {a.workOrder && a.workOrder.assignments.length > 0
+                    ? a.workOrder.assignments.map((asn) => asn.staff.name).join(", ")
+                    : "—"}
+                </td>
                 <td className="p-3">
                   <StatusBadge status={a.workOrder ? a.workOrder.status : a.status} />
                 </td>
@@ -82,7 +88,7 @@ export default function OwnerAppointmentsPage() {
             ))}
             {appointments.length === 0 && (
               <tr>
-                <td colSpan={5} className="p-6 text-center text-[#a8a6a0]">
+                <td colSpan={6} className="p-6 text-center text-[#a8a6a0]">
                   {t("common.noData")}
                 </td>
               </tr>

@@ -29,7 +29,10 @@ export async function POST(_req: NextRequest, ctx: { params: Promise<{ id: strin
   const nextStatus = FLOW[currentIndex + 1];
 
   const updated = await prisma.$transaction(async (tx) => {
-    const wo = await tx.workOrder.update({ where: { id }, data: { status: nextStatus } });
+    const wo = await tx.workOrder.update({
+      where: { id },
+      data: { status: nextStatus, ...(nextStatus === "COMPLETED" ? { completedAt: new Date() } : {}) },
+    });
 
     if (nextStatus === "COMPLETED") {
       await tx.appointment.update({ where: { id: workOrder.appointmentId }, data: { status: "COMPLETED" } });

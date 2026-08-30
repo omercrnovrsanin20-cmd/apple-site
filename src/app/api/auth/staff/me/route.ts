@@ -4,5 +4,5 @@ import { getStaffSession } from "@/lib/auth";
 export async function GET() {
   const session = await getStaffSession();
   if (!session) return NextResponse.json({ session: null }, { status: 401 });
-  return NextResponse.json({ session: { role: "staff" } });
+  return NextResponse.json({ session: { role: "staff", id: session.sub, name: session.name } });
 }

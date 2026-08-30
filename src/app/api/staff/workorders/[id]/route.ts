@@ -16,6 +16,7 @@ export async function GET(_req: NextRequest, ctx: { params: Promise<{ id: string
       checklistItems: { orderBy: { order: "asc" } },
       photos: true,
       appointment: { include: { customer: true, request: true } },
+      assignments: { include: { staff: { select: { id: true, name: true } } } },
     },
   });
   if (!workOrder) return NextResponse.json({ error: "not_found" }, { status: 404 });
