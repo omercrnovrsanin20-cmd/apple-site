@@ -48,7 +48,7 @@ export function CustomerNav() {
     <header className="sticky top-0 z-40 border-b border-[#2a2a2e] bg-[#0b0b0c]/95 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link href="/customer" className="font-display text-lg tracking-wide text-[#f4f2ec]">
-          Lustro <span className="text-[#c8a24a]">Detailing</span>
+          <span className="text-[#c8a24a]">Detailing</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm text-[#a8a6a0]">
           {links.map((l) => (

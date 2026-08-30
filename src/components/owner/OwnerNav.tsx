@@ -34,7 +34,7 @@ export function OwnerNav() {
     <header className="sticky top-0 z-40 border-b border-[#2a2a2e] bg-[#0b0b0c]">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
         <Link href="/owner" className="text-base font-semibold text-[#f4f2ec]">
-          Lustro <span className="text-[#c8a24a]">Owner</span>
+          Detailing <span className="text-[#c8a24a]">Owner</span>
         </Link>
         <nav className="hidden lg:flex items-center gap-4 text-sm text-[#a8a6a0]">
           {links.map((l) => (

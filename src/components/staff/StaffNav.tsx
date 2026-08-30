@@ -30,7 +30,7 @@ export function StaffNav() {
     <header className="sticky top-0 z-40 border-b border-[#2a2a2e] bg-[#141416]">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
         <Link href="/staff" className="text-base font-semibold text-[#f4f2ec]">
-          Lustro <span className="text-[#c8a24a]">Staff</span>
+          Detailing <span className="text-[#c8a24a]">Staff</span>
         </Link>
         <nav className="hidden md:flex items-center gap-5 text-sm text-[#a8a6a0]">
           {links.map((l) => (

@@ -6,7 +6,7 @@ export default function CustomerLayout({ children }: { children: React.ReactNode
       <CustomerNav />
       <main className="flex-1">{children}</main>
       <footer className="border-t border-[#2a2a2e] px-6 py-8 text-center text-xs text-[#6f6d68]">
-        © {new Date().getFullYear()} Lustro Detailing — Montenegro
+        © {new Date().getFullYear()} Detailing — Montenegro
       </footer>
     </div>
   );

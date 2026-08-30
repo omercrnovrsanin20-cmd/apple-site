@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function GatewayPage() {
   return (
     <div className="flex flex-1 flex-col items-center justify-center bg-[#0b0b0c] text-[#f4f2ec] px-6 py-24">
-      <p className="text-xs uppercase tracking-[0.35em] text-[#c8a24a]">Lustro Detailing</p>
+      <p className="text-xs uppercase tracking-[0.35em] text-[#c8a24a]">Detailing</p>
       <h1 className="font-display mt-4 text-center text-4xl sm:text-5xl">Business Management Platform</h1>
       <p className="mt-4 max-w-xl text-center text-[#a8a6a0]">
         Three connected portals sharing one backend and one database.
