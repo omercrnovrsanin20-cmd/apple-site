@@ -21,6 +21,11 @@ const CUSTOMER_NAME = "Test Customer";
 
 const CUSTOMER_B_EMAIL = `test.customerb.${Date.now()}@example.com`;
 
+const STAFF_EMAIL = `test.staff.${Date.now()}@example.com`;
+const STAFF_PASSWORD = "StaffPass123";
+const OWNER_EMAIL = "owner@detailing.me";
+const OWNER_PASSWORD = "OwnerSecure2026!";
+
 function futureDate(daysAhead: number) {
   const d = new Date();
   d.setDate(d.getDate() + daysAhead);
@@ -30,6 +35,19 @@ function futureDate(daysAhead: number) {
 test.describe.serial("Full customer -> staff -> owner workflow", () => {
   let requestUrl = "";
   let workOrderUrl = "";
+
+  test.beforeAll(async ({ browser }) => {
+    // Staff accounts are created by the Owner, not seeded -- log in as owner
+    // and create the staff account the rest of this suite logs in as.
+    const context = await browser.newContext();
+    await context.request.post("/api/auth/owner/login", {
+      data: { email: OWNER_EMAIL, password: OWNER_PASSWORD },
+    });
+    await context.request.post("/api/owner/staff", {
+      data: { name: "Test Staff", email: STAFF_EMAIL, password: STAFF_PASSWORD },
+    });
+    await context.close();
+  });
 
   test("customer registers, adds vehicle, submits request with photo", async ({ page }) => {
     await page.goto("/customer/register");
@@ -86,7 +104,8 @@ test.describe.serial("Full customer -> staff -> owner workflow", () => {
     const page = await context.newPage();
 
     await page.goto("/staff/login");
-    await page.fill('input[type="password"]', "12345678");
+    await page.fill('input[type="email"]', STAFF_EMAIL);
+    await page.fill('input[type="password"]', STAFF_PASSWORD);
     await page.click('button[type="submit"]');
     await expect(page).toHaveURL(/\/staff$/);
 
@@ -274,15 +293,16 @@ test.describe.serial("Full customer -> staff -> owner workflow", () => {
 
   async function loginStaff(page: Page) {
     await page.goto("/staff/login");
-    await page.fill('input[type="password"]', "12345678");
+    await page.fill('input[type="email"]', STAFF_EMAIL);
+    await page.fill('input[type="password"]', STAFF_PASSWORD);
     await page.click('button[type="submit"]');
     await expect(page).toHaveURL(/\/staff$/);
   }
 
   async function loginOwner(page: Page) {
     await page.goto("/owner/login");
-    await page.fill('input[type="email"]', "owner@detailing.me");
-    await page.fill('input[type="password"]', "OwnerSecure2026!");
+    await page.fill('input[type="email"]', OWNER_EMAIL);
+    await page.fill('input[type="password"]', OWNER_PASSWORD);
     await page.click('button[type="submit"]');
     await expect(page).toHaveURL(/\/owner$/);
   }
@@ -347,9 +367,10 @@ test.describe("Security & authorization", () => {
 
   test("staff wrong password is rejected", async ({ page }) => {
     await page.goto("/staff/login");
+    await page.fill('input[type="email"]', STAFF_EMAIL);
     await page.fill('input[type="password"]', "wrongpassword");
     await page.click('button[type="submit"]');
-    await expect(page.getByText(/Netačna lozinka|Incorrect password/)).toBeVisible();
+    await expect(page.getByText(/Netačan email ili lozinka|Incorrect email or password/)).toBeVisible();
   });
 
   test("owner wrong credentials are rejected", async ({ page }) => {

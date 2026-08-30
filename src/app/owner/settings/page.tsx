@@ -17,15 +17,15 @@ export default function OwnerSettingsPage() {
         />
         <SettingRow
           title={t("nav.staffMgmt")}
-          desc="Staff login and future individual accounts."
+          desc="Add, deactivate or remove individual staff accounts."
           href="/owner/staff"
         />
         <div className="rounded-lg border border-[#2a2a2e] bg-[#141416] p-5">
           <p className="font-medium">System configuration</p>
           <p className="mt-1 text-[#a8a6a0]">
-            Auth secrets, the shared staff development password and owner credentials are configured via server-side
-            environment variables (AUTH_SECRET, STAFF_PASSWORD, OWNER_EMAIL, OWNER_PASSWORD) and are never exposed to
-            the frontend.
+            The auth secret and owner credentials are configured via server-side environment variables (AUTH_SECRET,
+            OWNER_EMAIL, OWNER_PASSWORD) and are never exposed to the frontend. Staff accounts are managed from the
+            Staff page above.
           </p>
         </div>
       </div>

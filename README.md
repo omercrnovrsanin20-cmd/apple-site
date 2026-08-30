@@ -42,8 +42,10 @@ npm run dev            # pushes the schema + seeds the database automatically
 
 Open http://localhost:3000/customer, `/staff`, or `/owner`.
 
-- Staff dev password: `12345678` (env var `STAFF_PASSWORD`)
 - Owner dev credentials: set via `OWNER_EMAIL` / `OWNER_PASSWORD` in `.env`
+- Staff accounts have no shared password anymore — sign in to `/owner`, open
+  **Staff**, and add an account (name, email, password) for each staff member.
+  They then log in at `/staff/login` with that email and password.
 
 ## "Continue with Google" (Customer portal)
 
@@ -90,7 +92,7 @@ npm run test:e2e
    - `DATABASE_URL`, `DIRECT_URL`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`
      — same Supabase project as local dev, or a separate one for production.
    - `AUTH_SECRET` — generate a fresh long random string, don't reuse the dev one.
-   - `STAFF_PASSWORD`, `OWNER_EMAIL`, `OWNER_PASSWORD` — your real values.
+   - `OWNER_EMAIL`, `OWNER_PASSWORD` — your real values.
    - `APP_URL` — your Netlify site's URL, e.g. `https://your-site.netlify.app`.
    - `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` — see below.
 4. Deploy. The build runs `prisma db push` + seeding automatically, same as

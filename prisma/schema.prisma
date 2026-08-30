@@ -215,16 +215,16 @@ model Notification {
 }
 
 // ---------------------------------------------------------------------------
-// Staff accounts -- NOT used yet (shared dev password is used instead).
-// Modeled now so individual staff logins/roles can be introduced later
-// without a schema migration for the core concept.
+// Staff accounts -- created by the Owner from the Owner Portal. Each account
+// logs in with its own email + password (password set by the Owner).
 // ---------------------------------------------------------------------------
 
 model StaffAccount {
-  id        String   @id @default(cuid())
-  name      String
-  email     String   @unique
-  role      String   @default("STAFF")
-  active    Boolean  @default(true)
-  createdAt DateTime @default(now())
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         String   @default("STAFF")
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
 }

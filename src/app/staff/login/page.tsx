@@ -9,6 +9,7 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 export default function StaffLoginPage() {
   const { t } = useI18n();
   const router = useRouter();
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -18,7 +19,7 @@ export default function StaffLoginPage() {
     setError(null);
     setLoading(true);
     try {
-      await apiFetch("/api/auth/staff/login", { method: "POST", body: JSON.stringify({ password }) });
+      await apiFetch("/api/auth/staff/login", { method: "POST", body: JSON.stringify({ email, password }) });
       router.push("/staff");
       router.refresh();
     } catch (err) {
@@ -39,9 +40,19 @@ export default function StaffLoginPage() {
         <p className="mt-1 text-sm text-[#a8a6a0]">{t("staff.loginSubtitle")}</p>
         <form onSubmit={onSubmit} className="mt-6 flex flex-col gap-4">
           <input
-            type="password"
+            type="email"
             required
             autoFocus
+            autoComplete="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="input-light"
+            placeholder={t("common.email")}
+          />
+          <input
+            type="password"
+            required
             autoComplete="current-password"
             name="password"
             value={password}
