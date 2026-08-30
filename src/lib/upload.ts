@@ -1,8 +1,6 @@
 import { randomUUID } from "crypto";
-import { mkdir, writeFile } from "fs/promises";
-import path from "path";
+import { getSupabase, PHOTOS_BUCKET } from "@/lib/supabase";
 
-const UPLOAD_ROOT = path.join(process.cwd(), "uploads");
 const ALLOWED_TYPES = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
 const MAX_SIZE_BYTES = 8 * 1024 * 1024; // 8MB
 
@@ -16,9 +14,10 @@ const EXT_BY_TYPE: Record<string, string> = {
 };
 
 /**
- * Validates and persists an uploaded image to local disk (outside /public so
- * access is mediated by /api/files, which checks for an authenticated
- * session before streaming bytes back).
+ * Validates and persists an uploaded image to the private "photos" bucket in
+ * Supabase Storage. Returns the storage path (not a public URL) -- access is
+ * mediated by /api/files, which checks for an authenticated session before
+ * streaming the bytes back, same as when this was a local-disk upload.
  */
 export async function saveUploadedImage(file: File, subfolder: string): Promise<string> {
   if (!ALLOWED_TYPES.has(file.type)) {
@@ -28,13 +27,18 @@ export async function saveUploadedImage(file: File, subfolder: string): Promise<
     throw new UploadValidationError("File too large (max 8MB)");
   }
 
-  const dir = path.join(UPLOAD_ROOT, subfolder);
-  await mkdir(dir, { recursive: true });
-
   const ext = EXT_BY_TYPE[file.type] ?? "bin";
   const filename = `${randomUUID()}.${ext}`;
+  const storagePath = `${subfolder}/${filename}`;
   const buffer = Buffer.from(await file.arrayBuffer());
-  await writeFile(path.join(dir, filename), buffer);
 
-  return `${subfolder}/${filename}`;
+  const { error } = await getSupabase()
+    .storage.from(PHOTOS_BUCKET)
+    .upload(storagePath, buffer, { contentType: file.type, upsert: false });
+
+  if (error) {
+    throw new Error(`Supabase upload failed: ${error.message}`);
+  }
+
+  return storagePath;
 }

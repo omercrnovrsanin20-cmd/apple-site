@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "predev": "prisma generate && prisma migrate deploy && tsx prisma/seed.ts",
+    "predev": "prisma generate && prisma db push --skip-generate && tsx prisma/seed.ts",
     "dev": "next dev",
-    "prebuild": "prisma generate && prisma migrate deploy && tsx prisma/seed.ts",
+    "prebuild": "prisma generate && prisma db push --skip-generate && tsx prisma/seed.ts",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@prisma/client": "6.19.3",
+    "@supabase/supabase-js": "^2.112.4",
     "bcryptjs": "^3.0.3",
     "date-fns": "^4.4.0",
     "dotenv": "^17.4.2",
@@ -27,6 +28,7 @@
     "zod": "^4.5.4"
   },
   "devDependencies": {
+    "@netlify/plugin-nextjs": "^5.15.13",
     "@playwright/test": "^1.62.1",
     "@tailwindcss/postcss": "^4",
     "@types/bcryptjs": "^2.4.6",

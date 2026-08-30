@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { readFile } from "fs/promises";
-import path from "path";
 import { getCustomerSession, getStaffSession, getOwnerSession } from "@/lib/auth";
-
-const UPLOAD_ROOT = path.join(process.cwd(), "uploads");
+import { getSupabase, PHOTOS_BUCKET } from "@/lib/supabase";
 
 const MIME_BY_EXT: Record<string, string> = {
   jpg: "image/jpeg",
@@ -23,18 +20,16 @@ export async function GET(req: NextRequest, ctx: { params: Promise<{ path: strin
   }
 
   const { path: segments } = await ctx.params;
-  const safeSegments = segments.filter((s) => s !== ".." && s !== "." && !s.includes("/"));
-  const filePath = path.join(UPLOAD_ROOT, ...safeSegments);
-  if (!filePath.startsWith(UPLOAD_ROOT)) {
-    return NextResponse.json({ error: "Invalid path" }, { status: 400 });
-  }
+  const safeSegments = segments.filter((s) => s !== ".." && s !== "." && !s.includes("\\"));
+  const storagePath = safeSegments.join("/");
 
-  try {
-    const buffer = await readFile(filePath);
-    const ext = filePath.split(".").pop()?.toLowerCase() ?? "";
-    const contentType = MIME_BY_EXT[ext] ?? "application/octet-stream";
-    return new NextResponse(buffer, { headers: { "Content-Type": contentType, "Cache-Control": "private, max-age=3600" } });
-  } catch {
+  const { data, error } = await getSupabase().storage.from(PHOTOS_BUCKET).download(storagePath);
+  if (error || !data) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
+
+  const ext = storagePath.split(".").pop()?.toLowerCase() ?? "";
+  const contentType = MIME_BY_EXT[ext] ?? "application/octet-stream";
+  const buffer = Buffer.from(await data.arrayBuffer());
+  return new NextResponse(buffer, { headers: { "Content-Type": contentType, "Cache-Control": "private, max-age=3600" } });
 }
