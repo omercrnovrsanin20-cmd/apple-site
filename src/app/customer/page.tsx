@@ -9,7 +9,7 @@ export default function CustomerHome() {
   return (
     <div>
       <section className="relative overflow-hidden px-6 py-28 text-center">
-        <p className="text-xs uppercase tracking-[0.4em] text-[#c8a24a]">Podgorica · Montenegro</p>
+        <p className="text-xs uppercase tracking-[0.4em] text-[#c8a24a]">Beograd · Srbija</p>
         <h1 className="font-display mx-auto mt-6 max-w-3xl text-4xl leading-tight sm:text-6xl">
           {t("customer.heroTitle")}
         </h1>
