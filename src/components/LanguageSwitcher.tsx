@@ -17,7 +17,7 @@ export function LanguageSwitcher({ variant = "light" }: { variant?: "light" | "d
         onClick={() => setLang("me")}
         className={`px-3 py-1.5 transition ${lang === "me" ? "bg-[#c8a24a] text-black" : ""}`}
       >
-        🇲🇪 CG
+        🇷🇸 SR
       </button>
       <button
         onClick={() => setLang("en")}

@@ -314,7 +314,7 @@ test.describe("Language switching", () => {
     await expect(page.getByText(/Detailing automobila|Automotive Detailing/)).toBeVisible();
     await page.getByRole("button", { name: "🇬🇧 EN", exact: true }).click();
     await expect(page.getByText("Automotive Detailing, Perfected.")).toBeVisible();
-    await page.getByRole("button", { name: "🇲🇪 CG", exact: true }).click();
+    await page.getByRole("button", { name: "🇷🇸 SR", exact: true }).click();
     await expect(page.getByText(/Detailing automobila na najvišem nivou/)).toBeVisible();
   });
 

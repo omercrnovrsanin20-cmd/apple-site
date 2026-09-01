@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="me" className={`${inter.variable} ${playfair.variable} ${mono.variable} h-full antialiased`}>
+    <html lang="sr" className={`${inter.variable} ${playfair.variable} ${mono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-[--background] text-[--foreground]">
         <I18nProvider>{children}</I18nProvider>
       </body>
